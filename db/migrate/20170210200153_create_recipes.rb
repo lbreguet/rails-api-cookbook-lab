@@ -1,0 +1,12 @@
+# frozen_string_literal: true
+
+class CreateRecipes < ActiveRecord::Migration[5.0]
+  def change
+    create_table :recipes do |t|
+      t.string :name, null: false
+      t.string :instruction, null: false
+
+      t.timestamps null: false
+    end
+  end
+end

@@ -17,3 +17,29 @@
 #                password: 'abc123',
 #                password_confirmation: nil)
 # end
+
+recipe_names = %w(eggs bourbon soda vanilla chocolate nutmeg milk)
+recipe_instructions = %w(shake bake pour mix turn flip throw grow)
+
+recipes = recipe_names.product(recipe_instructions)
+
+recipes.each do |recipe|
+  name = recipe[0]
+  instruction = recipe[1]
+  next if Recipe.exists? name: name, instruction: instruction
+  Recipe.create!(name: name, instruction: instruction)
+end
+
+ingredient_names = %w(eggs bourbon soda vanilla chocolate nutmeg milk)
+ingredient_units = %w(tsp tbsp shot each bar pint oz quart)
+
+ingredients = ingredient_names.product(ingredient_units)
+
+ingredients.each do |ingredient|
+  name = ingredient[0]
+  unit = ingredient[1]
+  next if Ingredient.exists? name: name, unit: unit
+  Ingredient.create!(name: name,
+                     unit: unit,
+                     recipe: Recipe.all.sample)
+end
